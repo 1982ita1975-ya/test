@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Психологическая диагностика</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+            background: #f5f0eb;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .container {
+            max-width: 650px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 32px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            padding: 30px 25px 40px;
+            transition: all 0.2s;
+        }
+        h1 {
+            font-size: 24px;
+            font-weight: 600;
+            color: #2d2a24;
+            text-align: center;
+            margin-bottom: 20px;
+            letter-spacing: -0.3px;
+        }
+        .instruction {
+            background-color: #faf8f6;
+            padding: 20px 22px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            border-left: 4px solid #b8a99c;
+            color: #3b3530;
+            font-size: 15px;
+            line-height: 1.6;
+            white-space: pre-wrap;
+        }
+        .instruction p {
+            margin-bottom: 12px;
+        }
+        .instruction p:last-child {
+            margin-bottom: 0;
+        }
+        .test-image {
+            width: 100%;
+            border-radius: 20px;
+            margin: 10px 0 20px;
+            background: #e8e2db;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        .test-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .choices-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin: 25px 0 20px;
+        }
+        .choice-btn {
+            background: #ffffff;
+            border: 2px solid #ddd6cf;
+            border-radius: 16px;
+            padding: 18px 0;
+            font-size: 28px;
+            font-weight: 600;
+            color: #3b3530;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            text-align: center;
+            line-height: 1.2;
+        }
+        .choice-btn:hover {
+            background: #f3efe9;
+            border-color: #b8a99c;
+            transform: scale(1.02);
+        }
+        .choice-btn:active {
+            transform: scale(0.96);
+            background: #e8e2db;
+        }
+        .result-box {
+            background: #f5f0eb;
+            border-radius: 24px;
+            padding: 25px 22px;
+            margin-top: 25px;
+            border: 1px solid #e8e2db;
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+        .result-box.visible {
+            display: block;
+        }
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .result-level {
+            font-weight: 600;
+            font-size: 18px;
+            color: #2d2a24;
+            margin-bottom: 10px;
+        }
+        .result-text {
+            font-size: 15px;
+            line-height: 1.6;
+            color: #3b3530;
+        }
+        .result-text strong {
+            color: #2d2a24;
+        }
+        .final-message {
+            margin-top: 25px;
+            padding: 20px 22px;
+            background: #faf8f6;
+            border-radius: 20px;
+            border-left: 4px solid #b8a99c;
+            font-size: 15px;
+            line-height: 1.6;
+            color: #3b3530;
+            display: none;
+        }
+        .final-message.visible {
+            display: block;
+        }
+        .final-message strong {
+            color: #2d2a24;
+        }
+        .btn-reset {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 28px;
+            background: #d6cdc4;
+            border: none;
+            border-radius: 40px;
+            font-size: 15px;
+            font-weight: 500;
+            color: #2d2a24;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn-reset:hover {
+            background: #c5bab0;
+        }
+        .btn-reset:active {
+            transform: scale(0.96);
+        }
+        .note {
+            text-align: center;
+            font-size: 13px;
+            color: #8a7e73;
+            margin-top: 20px;
+            border-top: 1px solid #ece7e2;
+            padding-top: 20px;
+        }
+        @media (max-width: 480px) {
+            .container { padding: 20px 16px; }
+            .choices-grid { gap: 8px; }
+            .choice-btn { font-size: 24px; padding: 14px 0; }
+            .instruction { font-size: 14px; padding: 16px 18px; }
+        }
+    </style>
+</head>
+<body>
+<div class="container" id="app">
+    <h1>🔍 Диагностика запроса</h1>
+
+    <!-- Инструкция -->
+    <div class="instruction" id="instructionBlock">
+        <p>Приглашаю вас сегодня на диагностику по выявлению корневой причины вашего запроса на работу с психологом.</p>
+        <p>Подумайте, что сейчас в вашей жизни тревожит вас больше всего и какой вопрос вы хотели бы разрешить. Сформулируйте этот запрос мысленно или запишите, чтобы не забыть.</p>
+        <p>Представьте, что вы заходите в кабинет психолога и видите, что перед вами 6 мест на выбор…</p>
+        <p>Посмотрите на каждое из них, и выберите одно, на котором вам было бы комфортнее всего.</p>
+        <p><strong>Смотрите расшифровку и вы увидите на каком уровне лежит корневая причина и с чем нужна работа для решения этого запроса.</strong></p>
+    </div>
+
+    <!-- Картинка -->
+    <div class="test-image">
+        <img src="data:image/png;base64,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AwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQawAAQhYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwBAAhZAwAQsQYAIGINAEDEGgCAkDUAACFrAAAi1gAARKwB
